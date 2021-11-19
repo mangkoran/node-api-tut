@@ -1,14 +1,22 @@
 name: Lint Commit
-on: [push]
+on: [pull_request]
 jobs:
   Lint-Commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           # we actually need "github.event.pull_request.commits + 1" commit
           fetch-depth: 0
-      - uses: actions/setup-node@v2
-      # or just "yarn" if you depend on "@commitlint/cli" already
-      - run: yarn add @commitlint/cli
-      - run: yarn run commitlint --from HEAD~${{ github.event.push.commits }} --to HEAD
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup node.js
+        uses: actions/setup-node@v2
+
+      - name: Lint
+        run: |
+          FIRST_COMMIT_SHA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" ${{ github.event.pull_request.commits_url }} | jq -r '.[0].sha')
+          npm ci
+          npm commitlint --from $FIRST_COMMIT_SHA^
