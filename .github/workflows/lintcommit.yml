@@ -11,4 +11,4 @@ jobs:
       - uses: actions/setup-node@v2
       # or just "yarn" if you depend on "@commitlint/cli" already
       - run: yarn add @commitlint/cli
-      - run: yarn run commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
+      - run: yarn run commitlint --from HEAD~${{ github.event.push.commits }} --to HEAD
