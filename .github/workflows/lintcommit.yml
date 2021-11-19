@@ -1,5 +1,5 @@
 name: Lint Commit
-on: [pull_request]
+on: [push]
 jobs:
   Lint-Commit:
     runs-on: ubuntu-latest
