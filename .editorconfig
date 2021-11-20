@@ -1,16 +1,38 @@
 # EditorConfig is awesome: https://EditorConfig.org
 
-# top-most EditorConfig file
+# https://github.com/mdn/kuma/blob/master/.editorconfig
+# Top-most EditorConfig file ?
 root = true
 
-# Tab indentation
+# Unix-style newlines with a newline ending every file
 [*]
-indent_style = space
-indent_size = 4
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
 trim_trailing_whitespace = true
 
-# The indent size used in the `package.json` file cannot be changed
-# https://github.com/npm/npm/pull/3180#issuecomment-16336516
-[{*.yml,*.yaml,package.json}]
+# Indentation
 indent_style = space
+indent_size = 4
+
+# YAML and Jenkins use two spaces
+[{*.{yaml,yml},Jenkinsfile}]
 indent_size = 2
+
+# git and Makefile use the superior tabs
+[{.git*,Makefile,make.bat}]
+indent_style = tab
+
+# https://github.com/facebook/react/blob/main/.editorconfig
+# JavaScript and TypeScript
+
+[*.{js,json,jsx,ts,tsx}]
+indent_size = 2
+max_line_length = 80
+
+[*.md]
+max_line_length = 0
+trim_trailing_whitespace = false
+
+[COMMIT_EDITMSG]
+max_line_length = 0
