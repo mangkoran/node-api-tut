@@ -21,6 +21,12 @@ jobs:
           npm ci
           npx commitlint --from $FIRST_COMMIT_SHA^ --verbose
 
+  Codecov:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup node.js
+        uses: actions/setup-node@v2
+
       - name: Codecov
         uses: codecov/codecov-action@v2
         with:
