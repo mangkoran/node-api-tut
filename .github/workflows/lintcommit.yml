@@ -1,4 +1,4 @@
-name: Lint Commit
+name: CI
 on: [pull_request]
 jobs:
   Lint-Commit:
@@ -19,4 +19,14 @@ jobs:
         run: |
           FIRST_COMMIT_SHA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" ${{ github.event.pull_request.commits_url }} | jq -r '.[0].sha')
           npm ci
-          npm commitlint --from $FIRST_COMMIT_SHA^
+          npx commitlint --from $FIRST_COMMIT_SHA^ --verbose
+
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          # files: ./coverage1.xml,./coverage2.xml # optional
+          flags: unittests # optional
+          # name: codecov-umbrella # optional
+          # fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
