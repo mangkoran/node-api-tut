@@ -1,0 +1,4 @@
+# using MongoDB
+# MONGODB_URL=<mongodb-connection-string>
+# using MangoDB
+MONGODB_URL=mongodb://localhost:27017/test?directConnection=true
