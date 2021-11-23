@@ -20,11 +20,11 @@ import postsRoute from './routes/posts.js';
 app.use('/posts', postsRoute);
 
 // routes
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('We are on home')
 });
 
-app.get('/posts', (req, res) => {
+app.get('/posts', (_req, res) => {
   res.send('We are on posts')
 });
 
