@@ -1,5 +1,7 @@
-const express = require('express');
-const Post = require('../models/Post');
+// const express = require('express');
+// const Post = require('../models/Post');
+import express from 'express';
+import Post from '../models/Post.js';
 
 const router = express.Router();
 
@@ -63,4 +65,5 @@ router.patch('/:postId', async (req, res) => {
   }
 });
 
-module.exports = router;
+// module.exports = router;
+export default router;
