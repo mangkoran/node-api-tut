@@ -2,6 +2,7 @@
 // const Post = require('../models/Post');
 import express from 'express';
 import Post from '../models/Post.js';
+import lodash from 'lodash';
 
 const router = express.Router();
 
@@ -55,9 +56,18 @@ router.delete('/:postId', async (req, res) => {
 //update post
 router.patch('/:postId', async (req, res) => {
   try {
+    const post = await Post.findById(req.params.postId);
+    let query = { $set: { } };
+    lodash.forEach(req.body, (_value, key) => {
+      (post[key] && post[key] !== req.body[key]) && (query.$set[key] = req.body[key])
+    });
+    // for (let key in req.body) {
+    //   if (post[key] && post[key] !== req.body[key])
+    //     query.$set[key] = req.body[key];
+    // }
     const updatedPost = await Post.updateOne(
       { _id: req.params.postId },
-      { $set: { title: req.body.title } }
+      query
     );
     res.json(updatedPost);
   } catch(err) {
